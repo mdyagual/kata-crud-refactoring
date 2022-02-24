@@ -23,8 +23,9 @@ public class TodoService {
                 .map(this::convertEntityToDto)
                 .collect(Collectors.toList());
     }
-    public Todo getToDo(Long id){
-        return toDoRepo.findById(id).orElseThrow();
+    public TodoDTO getToDoById(Long id){
+        Todo todo = toDoRepo.findById(id).get();
+        return convertEntityToDto(todo);
     }
     
     //Save
@@ -34,11 +35,11 @@ public class TodoService {
 
     //Delete
     public void deleteToDo(Long id){
-        toDoRepo.delete(getToDo(id));
+        toDoRepo.delete(convertDTOToEntity(getToDoById(id)));
     }    
 
     //Conversiones
-    private TodoDTO convertEntityToDto(Todo todo){
+    public TodoDTO convertEntityToDto(Todo todo){
         TodoDTO todoDTO = new TodoDTO();
 
         todoDTO.setName(todo.getName());
@@ -48,7 +49,7 @@ public class TodoService {
         return todoDTO;
     }
 
-    private Todo convertDTOToEntity(TodoDTO todoDTO){
+    public static Todo convertDTOToEntity(TodoDTO todoDTO){
         Todo todo= new Todo();
 
         todo.setName(todoDTO.getName());
