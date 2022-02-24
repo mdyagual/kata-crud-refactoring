@@ -2,16 +2,22 @@ package co.com.sofka.crud.entities;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
+@Table(name="tbl_todo")
 public class Todo {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)    
     private Long id;
+    
     private String name;
-    private boolean completed;
+    private boolean isCompleted;
     private String groupListId;
+
+    //Getters and seters
 
     public String getGroupListId() {
         return groupListId;
@@ -38,10 +44,10 @@ public class Todo {
     }
 
     public boolean isCompleted() {
-        return completed;
+        return isCompleted;
     }
 
     public void setCompleted(boolean completed) {
-        this.completed = completed;
+        this.isCompleted = completed;
     }
 }
