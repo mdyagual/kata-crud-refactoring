@@ -1,11 +1,12 @@
 import React,{useContext,useRef,useState} from 'react';
 import {POST_API,PUT_API } from '../config';
+import { toDoContext } from '../contexts/toDoContext';
 
 export const Form = () => {
     const formRef = useRef(null);
-    const { dispatch, formStatus: { todo } } = useContext(Store);
-    const item = todo.item;
-    const [formStatus, modifyState] = useState(item);
+    const { dispatch, state: { item } } = useContext(toDoContext);
+    //const item = todo.item;
+    const [formStatus, modifyState] = useState({item});
   
     const onAdd = (event) => {
       event.preventDefault();
@@ -36,7 +37,7 @@ export const Form = () => {
       event.preventDefault();
   
       const request = {
-        name: formStatus.name,
+        name: item.name,
         id: item.id,
         isCompleted: item.isCompleted
       };
@@ -62,11 +63,11 @@ export const Form = () => {
         type="text"
         name="name"
         placeholder="¿Qué piensas hacer hoy?"
-        defaultValue={item.name}
+        defaultValue={item?.name}
         onChange={(event) => {
           modifyState({ ...formStatus, name: event.target.value })
         }}  ></input>
-      {item.id && <button onClick={onEdit}>Actualizar</button>}
-      {!item.id && <button onClick={onAdd}>Crear</button>}
+      {item?.id && <button onClick={onEdit}>Actualizar</button>}
+      {!item?.id && <button onClick={onAdd}>Crear</button>}
     </form>
   }
