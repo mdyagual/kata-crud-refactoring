@@ -7,7 +7,7 @@ const initialState = {
 const Store = createContext(initialState)
 
 
-const Form = () => {
+/*const Form = () => {
   const formRef = useRef(null);
   const { dispatch, state: { todo } } = useContext(Store);
   const item = todo.item;
@@ -76,14 +76,14 @@ const Form = () => {
     {!item.id && <button onClick={onAdd}>Crear</button>}
   </form>
 }
-
+*/
 
 const List = () => {
   const { dispatch, state: { todo } } = useContext(Store);
   const currentList = todo.list;
 
   useEffect(() => {
-    //http://127.0.0.1:8081/api/todos/all 
+    //http://127.0.0.1:8080/api/todos/all 
     fetch(HOST_API + "/all")
       .then(response => response.json())
       .then((list) => {
@@ -111,6 +111,7 @@ const List = () => {
       id: todo.id,
       completed: event.target.checked
     };
+    //Checkbox?
     fetch(HOST_API + "/todo", {
       method: "PUT",
       body: JSON.stringify(request),
@@ -153,7 +154,7 @@ const List = () => {
 
 
 
-function reducer(state, action) {
+/*function reducer(state, action) {
   switch (action.type) {
     case 'update-item':
       const todoUpItem = state.todo;
@@ -189,7 +190,7 @@ function reducer(state, action) {
       return state;
   }
 }
-
+*/
 const StoreProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
