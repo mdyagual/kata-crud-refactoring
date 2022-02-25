@@ -1,10 +1,10 @@
 import React, { useContext, useReducer, useEffect, useRef, useState, createContext } from 'react';
 
-const HOST_API = "http://localhost:8080/api/todos";
+/*const HOST_API = "http://localhost:8080/api/todos";
 const initialState = {
   todo: { list: [], item: {} }
 };
-const Store = createContext(initialState)
+const Store = createContext(initialState)*/
 
 
 /*const Form = () => {
@@ -78,7 +78,7 @@ const Store = createContext(initialState)
 }
 */
 
-const List = () => {
+/*const List = () => {
   const { dispatch, state: { todo } } = useContext(Store);
   const currentList = todo.list;
 
@@ -151,7 +151,7 @@ const List = () => {
     </table>
   </div>
 }
-
+*/
 
 
 /*function reducer(state, action) {
@@ -191,14 +191,15 @@ const List = () => {
   }
 }
 */
-const StoreProvider = ({ children }) => {
+
+/*const StoreProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   return <Store.Provider value={{ state, dispatch }}>
     {children}
   </Store.Provider>
 
-}
+}*/
 
 function App() {
   return <StoreProvider>
