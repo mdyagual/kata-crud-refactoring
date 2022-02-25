@@ -1,5 +1,6 @@
 import { createContext } from 'react';
+import { toDoInitialState } from '../reducers/toDoReducer';
 
-import { initialState } from '../reducers';
 
-export const toDoContext = createContext(initialState);
+
+export const toDoContext = createContext(toDoInitialState);

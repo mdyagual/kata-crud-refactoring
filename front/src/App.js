@@ -3,7 +3,7 @@ import { Form } from './components/Form';
 import { List } from './components/List';
 import { StoreProvider } from './components/StoreProvider';
 
-export function App() {
+export default function App() {
   return (
     <StoreProvider>
       <h3>To-Do List</h3>
