@@ -1,9 +1,16 @@
 export const toDoInitialState = {
-    todo: {  list: [], item: {} }
+    todo: {  list: [], item: {} },
+    category: {list: [], item:{} }
 };
 
 export function toDoReducer(state, action) {
     switch (action.type) {
+      //CategoryForm
+      case 'add-cat':
+        const categoryAdd = state.category.list;
+        categoryAdd.push(action.item);
+        return{...state, category: {list: categoryAdd, item:{} }}
+
       case 'update-item':
         const todoUpItem = state.todo;
         const listUpdateEdit = todoUpItem.list.map((item) => {
