@@ -1,16 +1,18 @@
 import React,{useContext,useRef,useState} from 'react';
+//import {setHideComponent } from '../App';
 import {POST_API,PUT_API } from '../config';
 import { toDoContext } from '../contexts/toDoContext';
 
-export const Form = () => {
+export const Form = ({changeState}) => {
+    
     const formRef = useRef(null);
     const { dispatch, state: { item } } = useContext(toDoContext);
     //const item = todo.item;
     const [formStatus, modifyState] = useState({item});
-  
+    
     const onAdd = (event) => {
       event.preventDefault();
-  
+      changeState(false);
       const request = {
         name: formStatus.name,
         id: null,

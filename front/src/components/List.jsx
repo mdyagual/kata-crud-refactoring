@@ -1,10 +1,11 @@
-import React,{useContext,useEffect} from 'react';
+import React,{useContext, useState } from 'react';
 import { DELETE_API, GET_API, PUT_API } from '../config';
 import { toDoContext } from '../contexts/toDoContext';
 
 
 export const List = () => {
     const { dispatch, state: { todo } } = useContext(toDoContext);
+    
     const currentList = todo.list;
   
     /*useEffect(() => {
@@ -54,7 +55,7 @@ export const List = () => {
       textDecoration: 'line-through'
     };
     return <div>
-      <table >
+      <table>
         <thead>
           <tr>
             <td>ID</td>
@@ -63,7 +64,8 @@ export const List = () => {
           </tr>
         </thead>
         <tbody>
-          {currentList.map((todo) => {
+          { currentList.map((todo) => {
+            
             return <tr key={todo.id} style={todo.completed ? decorationDone : {}}>
               <td>{todo.id}</td>
               <td>{todo.name}</td>
