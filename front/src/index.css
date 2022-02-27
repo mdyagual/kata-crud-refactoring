@@ -19,3 +19,8 @@ code {
    border-style: ridge ;
    
  }
+
+ .catDiv{
+   background-color: blueviolet;
+   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+ }
