@@ -10,7 +10,8 @@ export const PUT_API_TODO = HOST_API +  TODO_API+"/actualizar";
 export const DELETE_API_TODO = HOST_API +  TODO_API+"/eliminar/";
 
 //Operaciones CRUD - endpoints -Categories
-export const GET_API_CAT = HOST_API + CAT_API+ "/all";
+export const GET_API_CATS = HOST_API + CAT_API+ "/all"
+export const GET_API_CAT = HOST_API + CAT_API+ "/category/";;
 export const POST_API_CAT = HOST_API + CAT_API+ "/guardar";
 export const DELETE_API_CAT = HOST_API +  CAT_API+"/eliminar/";
 

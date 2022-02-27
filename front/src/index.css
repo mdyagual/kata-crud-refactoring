@@ -23,4 +23,6 @@ code {
  .catDiv{
    background-color: burlywood;
    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+   margin-top: 10px;
+   margin-bottom: 10px;
  }
