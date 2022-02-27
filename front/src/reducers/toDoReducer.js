@@ -1,40 +1,54 @@
 import { TYPES } from "../utils/operations";
 export const toDoInitialState = {
-    todo: {  list: [], item: {} },
-    category: {list: [], item:{} }
+    toDoS: []/*{ list: [], item: {} }*/,
+    categories: [] /*{list: [], item:{} }*/
 };
 
 export function toDoReducer(state, action) {
     switch (action.type) {
+      //Todo lo que está action es lo que yo mando
       //CategoryForm
-      case TYPES.ADD_CAT:
-        const categoryAdd = state.category.list;
-        categoryAdd.push(action.item);
-        return{...state, category: {list: categoryAdd, item:{} }}
-
+      //POST_CAT
+      case TYPES.ADD_CAT: 
+        //... (se crea una copia del state): Se necesita cosas inmutables      
+        return{...state, categories: [...state.categories,action.item]}
+      //DELETE_CAT
       case TYPES.DELETE_CAT:
-        const categoryDel = state.category;
+        const categoryDel = state.categories;
+        //Hace un nuevo arreglo con el que ya no está
+        //Todos los métodos del ES6 son inmutables
         const catList = categoryDel.list.filter((item) => {
                 return item.id !== action.id;
             });
-        categoryDel.list = catList;
-        return { ...state, category: categoryDel }
+        return { ...state, categories: catList }
 
       case TYPES.GET_CATS:
-        const catAllList = state.category;
-        catAllList.list = action.list;
-        return { ...state, category: catAllList }
+        //const catAllList = state.categories;      
+        //console.log("CatAllList: ",action.list);
+        return { ...state, categories: action.list }
 
       case TYPES.GET_TODOS:
-        const todoUpList = state.todo;
-        todoUpList.list = action.list;
-        return { ...state, todo: todoUpList }
+        //TODO: Determinar la categoría, mapearla.
+        /*const todoUpList = state.todo;  
+        todoUpList.list = action.list;   
+        const newList = Object.keys(todoUpList).map((idCat)=>{
+          if(idCat === action.idCat){
+            return action.list;
+          }
+          return todoUpList[idCat];
+        });
+        //console.log("NewList: ",newList);
+        todoUpList.list=newList;        */
+        return { ...state, toDoS: action.list}
         
       case TYPES.ADD_TO_DO:
-        const toDoAdd = state.todo.list;
-        toDoAdd.push(action.item);
-        return{...state, todo: {list: toDoAdd, item:{} }}
-        
+        /*const todoUp = state.todo.list;
+        todoUp.push(action.item);
+        return { ...state, todo: {list: todoUp.filter((item) => {
+          return (action.id!==item.id  );
+        }), item: {}} }*/
+        return{...state, toDoS: [...state.toDoS,action.item]}
+
       /*case 'update-item':
         const todoUpItem = state.todo;
         const listUpdateEdit = todoUpItem.list.map((item) => {
