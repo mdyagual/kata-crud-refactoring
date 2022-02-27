@@ -44,7 +44,7 @@ public class TodoService {
 
         todoDTO.setName(todo.getName());
         todoDTO.setCompleted(todo.isCompleted());
-        //todoDTO.setGroupListId(todo.getGroupListId());
+        todoDTO.setCategoryId(todo.getGroupListId());
 
         return todoDTO;
     }
@@ -54,7 +54,7 @@ public class TodoService {
 
         todo.setName(todoDTO.getName());
         todo.setCompleted(todoDTO.isCompleted());
-        //todo.setGroupListId(todoDTO.getGroupListId());
+        todo.setGroupListId(todoDTO.getCategoryId());
 
         return todo;
     }

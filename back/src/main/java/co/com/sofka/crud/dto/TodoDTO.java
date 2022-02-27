@@ -5,12 +5,12 @@ public class TodoDTO {
     private Long id;    
     private String name;
     private boolean isCompleted;
-    private String categoryId;
+    private Long categoryId;
     
-    public String getCategoryId() {
+    public Long getCategoryId() {
         return categoryId;
     }
-    public void setCategoryId(String categoryId) {
+    public void setCategoryId(Long categoryId) {
         this.categoryId = categoryId;
     }
     public Long getId() {

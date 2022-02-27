@@ -1,12 +1,15 @@
 package co.com.sofka.crud.entities;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Min;
 
@@ -18,24 +21,25 @@ public class Todo {
     @Column(unique = true, nullable = false)
     private Long id;
     
-    @Min(10)
+    //@Min(10)
     @Column(nullable = false)  
     private String name;
 
     private boolean isCompleted;
     
-    @ManyToOne
+    
+    @ManyToOne    
     @JoinColumn(name="id_cat")
     private Category groupListId;
 
     
     //Getters and setters
-    public Category getGroupListId() {
-        return groupListId;
+    public Long getGroupListId() {
+        return groupListId.getId();
     }
 
-    public void setGroupListId(Category groupListId) {
-        this.groupListId = groupListId;
+    public void setGroupListId(Long groupListId) {
+        this.groupListId.setId(groupListId);
     }
 
     public Long getId() {
