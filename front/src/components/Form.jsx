@@ -1,21 +1,27 @@
 import React,{useContext,useRef,useState} from 'react';
 import {POST_API,PUT_API } from '../config';
 import { toDoContext } from '../contexts/toDoContext';
+import { List } from './List';
 
 export const Form = () => {
     const formRef = useRef(null);
     const { dispatch, state: { item } } = useContext(toDoContext);
     //const item = todo.item;
     const [formStatus, modifyState] = useState({item});
-  
+
+    //El add donde se debería meter la sublista
     const onAdd = (event) => {
       event.preventDefault();
-  
+      
       const request = {
+        nomCat: formStatus.nomCat,
+        
+      }
+      /*const request = {
         name: formStatus.name,
         id: null,
         completed: false
-      };
+      };*/
   
   
       fetch(POST_API, {
@@ -57,17 +63,17 @@ export const Form = () => {
           formRef.current.reset();
         });
     }
-  
+    //{item?.id && <button onClick={onEdit}>Actualizar</button>}
     return <form ref={formRef}>
       <input
         type="text"
         name="name"
-        placeholder="¿Qué piensas hacer hoy?"
+        placeholder="Lista TO-DO"
         defaultValue={item?.name}
         onChange={(event) => {
           modifyState({ ...formStatus, name: event.target.value })
         }}  ></input>
-      {item?.id && <button onClick={onEdit}>Actualizar</button>}
-      {!item?.id && <button onClick={onAdd}>Crear</button>}
+      
+      {!item?.nomCat && <button onClick={onAdd}>Nueva lista</button>}
     </form>
   }

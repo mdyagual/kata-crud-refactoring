@@ -1,5 +1,5 @@
 export const toDoInitialState = {
-    todo: { list: [], item: {} }
+    todo: { catName: "", list: [], item: {} }
 };
 
 export function toDoReducer(state, action) {

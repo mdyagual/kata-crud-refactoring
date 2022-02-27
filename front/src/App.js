@@ -6,9 +6,17 @@ import { StoreProvider } from './components/StoreProvider';
 export default function App() {
   return (
     <StoreProvider>
-      <h3>To-Do List</h3>
+      <h3 ><div id="dashboardTitle">Dashboard</div></h3>
       <Form />
-      <List />
+      <div id="catForm">        
+        <List/>
+      </div>
+      
+        
+      
+      
+
+      
     </StoreProvider>)
 }
 
