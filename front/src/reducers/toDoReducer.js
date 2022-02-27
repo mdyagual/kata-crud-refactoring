@@ -30,6 +30,11 @@ export function toDoReducer(state, action) {
         todoUpList.list = action.list;
         return { ...state, todo: todoUpList }
         
+      case TYPES.ADD_TO_DO:
+        const toDoAdd = state.todo.list;
+        toDoAdd.push(action.item);
+        return{...state, todo: {list: toDoAdd, item:{} }}
+        
       /*case 'update-item':
         const todoUpItem = state.todo;
         const listUpdateEdit = todoUpItem.list.map((item) => {
