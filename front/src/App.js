@@ -1,5 +1,5 @@
 import React,{useState } from 'react';
-import { Form } from './components/Form'; //Form2.jsx
+import { CategoryForm, ListCatForm } from './components/Form'; //Form2.jsx
 import { List } from './components/List';
 import { StoreProvider } from './components/StoreProvider';
 //<div id="catForm">        
@@ -10,8 +10,9 @@ export default function App() {
   return (
     <StoreProvider>
       <h3 ><div id="dashboardTitle">Dashboard</div></h3>
-      <Form changeState={setHideComponent}/>
-      {!hideComponent ? <List />: "Nada por hacer"}
+      <CategoryForm changeState={setHideComponent}/>
+      {!hideComponent ? <ListCatForm/>: "Nada por hacer"}
+      {!hideComponent ? <List />: null}
     </StoreProvider>)
 }
 
