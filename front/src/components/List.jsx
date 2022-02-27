@@ -1,16 +1,12 @@
-import React,{useContext,useEffect,useRef,useState} from 'react';
+import React,{useContext,useEffect} from 'react';
 import { DELETE_API, GET_API, PUT_API } from '../config';
 import { toDoContext } from '../contexts/toDoContext';
 
 
 export const List = () => {
     const { dispatch, state: { todo } } = useContext(toDoContext);
-    const { state: { item } } = useContext(toDoContext);
-    
-    const formRef = useRef(null);
     const currentList = todo.list;
-    
-    const [formStatus, modifyState] = useState({item});
+  
     /*useEffect(() => {
       //http://127.0.0.1:8080/api/todos/all 
       fetch(GET_API)
@@ -57,18 +53,7 @@ export const List = () => {
     const decorationDone = {
       textDecoration: 'line-through'
     };
-    return <form  ref={formRef}>
-      <h3>{todo.catName}</h3>
-      <input
-        type="text"
-        name="name"
-        placeholder="¿Qué piensas hacer?"
-        defaultValue={item?.form}
-        onChange={(event) => {
-          modifyState({ ...formStatus, name: event.target.value })
-        }}  ></input>      
-      {!item?.id && <button >Crear</button>}
-    
+    return <div>
       <table >
         <thead>
           <tr>
@@ -89,5 +74,5 @@ export const List = () => {
           })}
         </tbody>
       </table>
-    </form>
+    </div>
   }
