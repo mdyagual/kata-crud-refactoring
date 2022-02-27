@@ -19,6 +19,17 @@ export function toDoReducer(state, action) {
             });
         categoryDel.list = catList;
         return { ...state, category: categoryDel }
+
+      case TYPES.GET_CATS:
+        const catAllList = state.category;
+        catAllList.list = action.list;
+        return { ...state, category: catAllList }
+
+      case TYPES.GET_TODOS:
+        const todoUpList = state.todo;
+        todoUpList.list = action.list;
+        return { ...state, todo: todoUpList }
+        
       /*case 'update-item':
         const todoUpItem = state.todo;
         const listUpdateEdit = todoUpItem.list.map((item) => {
