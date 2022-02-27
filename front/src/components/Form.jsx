@@ -53,7 +53,7 @@ export const CategoryForm = ({changeState}) => {
 }
 
 //N-Categoria
-export const ListCatForm = ({changeState}) => {
+export const ListCatForm = () => {
     
     const formRef = useRef(null);
     const { dispatch, state: { category } } = useContext(toDoContext);
@@ -76,4 +76,34 @@ export const ListCatForm = ({changeState}) => {
           <button onClick={onDelete}>Eliminar</button> </div>
       })}
     </form>
+}
+
+export const ToDoForm = ({id}) =>{
+  const formRef = useRef(null);
+  const { dispatch, state: { todo } } = useContext(toDoContext);
+  const item = todo.item;
+  const [toDoState, setToDo] = useState(item);
+
+  const onAdd = () =>{
+
+  }
+  const onEdit = () =>{
+
+  }
+
+
+  return <form ref={formRef}>
+    <input
+      type="text"
+      name="name"
+      placeholder="¿Qué piensas hacer hoy?"
+      defaultValue={item.name}
+      onChange={(event) => {
+        setToDo({ ...toDoState, name: event.target.value })
+      }}  ></input>
+    {item.id && <button className="btn btn-outline-warning btn-sm rounded" onClick={onEdit}>Actualizar</button>}
+    {!item.id && <button className="btn btn-outline-primary btn-sm rounded" onClick={onAdd}>Crear</button>}
+  </form>  
+  
+
 }

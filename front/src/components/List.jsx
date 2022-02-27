@@ -1,13 +1,13 @@
 import React,{useContext, useState } from 'react';
-import { DELETE_API, GET_API, PUT_API } from '../config';
+import { DELETE_API, PUT_API } from '../config';
 import { toDoContext } from '../contexts/toDoContext';
 
 
-export const List = () => {
+export const List = ({id}) => {
     const { dispatch, state: { todo } } = useContext(toDoContext);
     
     const currentList = todo.list;
-  
+    
     /*useEffect(() => {
       //http://127.0.0.1:8080/api/todos/all 
       fetch(GET_API)
@@ -55,8 +55,9 @@ export const List = () => {
       textDecoration: 'line-through'
     };
     return <div>
-      <table>
-        <thead>
+      <h3>{todo.catName}</h3>
+      <table>      
+        <thead>          
           <tr>
             <td>ID</td>
             <td>Tarea</td>
@@ -64,8 +65,7 @@ export const List = () => {
           </tr>
         </thead>
         <tbody>
-          { currentList.map((todo) => {
-            
+          { currentList.map((todo) => {            
             return <tr key={todo.id} style={todo.completed ? decorationDone : {}}>
               <td>{todo.id}</td>
               <td>{todo.name}</td>
