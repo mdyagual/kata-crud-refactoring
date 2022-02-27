@@ -2,6 +2,7 @@ import React,{useContext,useRef,useState} from 'react';
 //import {setHideComponent } from '../App';
 import {POST_API,DELETE_API } from '../config';
 import { toDoContext } from '../contexts/toDoContext';
+import { TYPES } from '../utils/operations';
 
 //Dashboard
 export const CategoryForm = ({changeState}) => {
@@ -32,7 +33,7 @@ export const CategoryForm = ({changeState}) => {
       })
         .then(response => response.json())
         .then((todo) => {
-          dispatch({ type: "add-cat", item: todo });
+          dispatch({ type: TYPES.ADD_CAT, item: todo });
           modifyCat({ name: "" });
           formRef.current.reset();
         });
@@ -64,27 +65,52 @@ export const ListCatForm = () => {
       fetch(DELETE_API + id, {
         method: "DELETE"
       }).then((list) => {
-        dispatch({ type: "delete-cat", id })
+        dispatch({ type: TYPES.DELETE_CAT, id })
       })
     };
     
     //Por acomodar para que se vea más bonito 
-    return <form ref={formRef}>
+    return <form ref={formRef} >
       {currentList.map((category)=>{
-        return <div class="catDiv">
+        return <div className="catDiv" key={category.name}>
           {category.name.toUpperCase()} 
           <button onClick={onDelete}>Eliminar</button> </div>
       })}
     </form>
 }
 
+//ToDo's
 export const ToDoForm = ({id}) =>{
   const formRef = useRef(null);
   const { dispatch, state: { todo } } = useContext(toDoContext);
   const item = todo.item;
   const [toDoState, setToDo] = useState(item);
 
-  const onAdd = () =>{
+  const onAdd = (event) =>{
+    event.preventDefault();
+
+    const request ={
+      name: state.name,
+      id: null,
+      isCompleted:false,
+      groupListId: id
+    };
+
+    fetch(POST_API, {
+      method: "POST",
+      body: JSON.stringify(request),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+      .then(response => response.json())
+      .then((todo) => {
+        dispatch({ type: TYPES.ADD_TO_DO, item: todo });
+        setState({ name: "" });
+        formRef.current.reset();
+      });
+
+
 
   }
   const onEdit = () =>{
@@ -101,8 +127,8 @@ export const ToDoForm = ({id}) =>{
       onChange={(event) => {
         setToDo({ ...toDoState, name: event.target.value })
       }}  ></input>
-    {item.id && <button className="btn btn-outline-warning btn-sm rounded" onClick={onEdit}>Actualizar</button>}
-    {!item.id && <button className="btn btn-outline-primary btn-sm rounded" onClick={onAdd}>Crear</button>}
+    {item.id && <button  onClick={onEdit}>Actualizar</button>}
+    {!item.id && <button onClick={onAdd}>Crear</button>}
   </form>  
   
 
