@@ -1,3 +1,4 @@
+import { TYPES } from "../utils/operations";
 export const toDoInitialState = {
     todo: {  list: [], item: {} },
     category: {list: [], item:{} }
@@ -6,12 +7,19 @@ export const toDoInitialState = {
 export function toDoReducer(state, action) {
     switch (action.type) {
       //CategoryForm
-      case 'add-cat':
+      case TYPES.ADD_CAT:
         const categoryAdd = state.category.list;
         categoryAdd.push(action.item);
         return{...state, category: {list: categoryAdd, item:{} }}
 
-      case 'update-item':
+      case TYPES.DELETE_CAT:
+        const categoryDel = state.category;
+        const catList = categoryDel.list.filter((item) => {
+                return item.id !== action.id;
+            });
+        categoryDel.list = catList;
+        return { ...state, category: categoryDel }
+      /*case 'update-item':
         const todoUpItem = state.todo;
         const listUpdateEdit = todoUpItem.list.map((item) => {
           if (item.id === action.item.id) {
@@ -49,7 +57,7 @@ export function toDoReducer(state, action) {
       case 'add-list':
         const todoUpAdd = state.todo;
         todoUpAdd.catName = action.catName;        
-        return { ...state, todo: todoUpAdd }
+        return { ...state, todo: todoUpAdd }*/
 
       default:
         return state;
