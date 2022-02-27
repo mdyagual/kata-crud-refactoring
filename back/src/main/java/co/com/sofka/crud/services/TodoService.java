@@ -41,7 +41,7 @@ public class TodoService {
     //Conversiones
     public TodoDTO convertEntityToDto(Todo todo){
         TodoDTO todoDTO = new TodoDTO();
-
+        todoDTO.setId(todo.getId());
         todoDTO.setName(todo.getName());
         todoDTO.setCompleted(todo.isCompleted());
         todoDTO.setCategory(todo.getCategory());
@@ -51,6 +51,7 @@ public class TodoService {
 
     public static Todo convertDTOToEntity(TodoDTO todoDTO){
         Todo todo= new Todo();
+        todo.setId(todoDTO.getId());
         todo.setName(todoDTO.getName());
         todo.setCompleted(todoDTO.isCompleted());
         todo.setCategory(todoDTO.getCategory());

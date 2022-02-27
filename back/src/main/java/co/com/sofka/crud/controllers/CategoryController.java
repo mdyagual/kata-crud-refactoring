@@ -34,7 +34,7 @@ public class CategoryController {
 
     @GetMapping("/category/{id}")
     //http://127.0.0.1:8080/api/categories/category/{id}
-    public ResponseEntity<Category> obtenerCategoryPorId(@RequestParam("id") Long id){
+    public ResponseEntity<Category> obtenerCategoryPorId(@PathVariable("id") Long id){
         Category c = catService.getCategoryById(id);
         return new ResponseEntity<Category>(c,HttpStatus.OK);
     }
