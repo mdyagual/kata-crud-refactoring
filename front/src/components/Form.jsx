@@ -1,22 +1,25 @@
 import React,{useContext,useRef,useState} from 'react';
 //import {setHideComponent } from '../App';
-import {POST_API,PUT_API } from '../config';
+import {POST_API,DELETE_API } from '../config';
 import { toDoContext } from '../contexts/toDoContext';
 
-export const Form = ({changeState}) => {
+//Dashboard
+export const CategoryForm = ({changeState}) => {
     
     const formRef = useRef(null);
-    const { dispatch, state: { item } } = useContext(toDoContext);
-    //const item = todo.item;
-    const [formStatus, modifyState] = useState({item});
+    const { dispatch, state: { category } } = useContext(toDoContext);
     
+    const item = category.item;
+
+    const [catStatus, modifyCat] = useState(item);
+
     const onAdd = (event) => {
       event.preventDefault();
       changeState(false);
+
       const request = {
-        name: formStatus.name,
-        id: null,
-        completed: false
+        name: catStatus.name,
+        id: null
       };
   
   
@@ -29,47 +32,48 @@ export const Form = ({changeState}) => {
       })
         .then(response => response.json())
         .then((todo) => {
-          dispatch({ type: "add-item", item: todo });
-          modifyState({ name: "" });
+          dispatch({ type: "add-cat", item: todo });
+          modifyCat({ name: "" });
           formRef.current.reset();
         });
     }
-  
-    const onEdit = (event) => {
-      event.preventDefault();
-  
-      const request = {
-        name: item.name,
-        id: item.id,
-        isCompleted: item.isCompleted
-      };
-  
-  
-      fetch(PUT_API, {
-        method: "PUT",
-        body: JSON.stringify(request),
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      })
-        .then(response => response.json())
-        .then((todo) => {
-          dispatch({ type: "update-item", item: todo });
-          modifyState({ name: "" });
-          formRef.current.reset();
-        });
-    }
-  
+    
     return <form ref={formRef}>
       <input
         type="text"
         name="name"
         placeholder="¿Qué piensas hacer hoy?"
-        defaultValue={item?.name}
+        defaultValue={item.name}
         onChange={(event) => {
-          modifyState({ ...formStatus, name: event.target.value })
+          modifyCat({ ...catStatus, name: event.target.value })
         }}  ></input>
-      {item?.id && <button onClick={onEdit}>Actualizar</button>}
-      {!item?.id && <button onClick={onAdd}>Crear</button>}
+      
+      {!item?.id && <button onClick={onAdd}>Nueva Lista</button>}
     </form>
-  }
+}
+
+//N-Categoria
+export const ListCatForm = ({changeState}) => {
+    
+    const formRef = useRef(null);
+    const { dispatch, state: { category } } = useContext(toDoContext);
+    
+    const currentList = category.list;
+    const onDelete = (id) => {
+      //http://127.0.0.1:8080/api/todos/eliminar/{id}
+      fetch(DELETE_API + id, {
+        method: "DELETE"
+      }).then((list) => {
+        dispatch({ type: "delete-cat", id })
+      })
+    };
+    
+    //Por acomodar para que se vea más bonito 
+    return <form ref={formRef}>
+      {currentList.map((category)=>{
+        return <div class="catDiv">
+          {category.name.toUpperCase()} 
+          <button onClick={onDelete}>Eliminar</button> </div>
+      })}
+    </form>
+}
