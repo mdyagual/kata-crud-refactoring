@@ -1,17 +1,17 @@
 package co.com.sofka.crud.entities;
 
-import javax.persistence.CascadeType;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.Min;
+
 
 @Entity
 @Table(name="tbl_todo")
@@ -28,19 +28,28 @@ public class Todo {
     private boolean isCompleted;
     
     
-    @ManyToOne    
-    @JoinColumn(name="id_cat")
-    private Category groupListId;
+    @ManyToOne /* (fetch = FetchType.LAZY)  
+    @JoinColumn(foreignKey = @ForeignKey(name = "fk_id_cat"),name="id_cat")    */
+    private Category category;
 
     
     //Getters and setters
-    public Long getGroupListId() {
+    /*public Long getGroupListId() {
         return groupListId.getId();
+    }*/
+
+    public void setCategory(Category c) {
+        this.category = c;
+        //c.setTodo(this);
     }
 
-    public void setGroupListId(Long groupListId) {
-        this.groupListId.setId(groupListId);
+    
+
+    public Category getCategory() {
+        return category;
     }
+
+
 
     public Long getId() {
         return id;

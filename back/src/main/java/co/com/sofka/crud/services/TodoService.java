@@ -44,17 +44,16 @@ public class TodoService {
 
         todoDTO.setName(todo.getName());
         todoDTO.setCompleted(todo.isCompleted());
-        todoDTO.setCategoryId(todo.getGroupListId());
+        todoDTO.setCategory(todo.getCategory());
 
         return todoDTO;
     }
 
     public static Todo convertDTOToEntity(TodoDTO todoDTO){
         Todo todo= new Todo();
-
         todo.setName(todoDTO.getName());
         todo.setCompleted(todoDTO.isCompleted());
-        todo.setGroupListId(todoDTO.getCategoryId());
+        todo.setCategory(todoDTO.getCategory());
 
         return todo;
     }

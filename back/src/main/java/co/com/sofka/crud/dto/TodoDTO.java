@@ -1,17 +1,18 @@
 package co.com.sofka.crud.dto;
 
+import co.com.sofka.crud.entities.Category;
 
 public class TodoDTO {
     private Long id;    
     private String name;
     private boolean isCompleted;
-    private Long categoryId;
+    private Category category;
     
-    public Long getCategoryId() {
-        return categoryId;
+    public Category getCategory() {
+        return category;
     }
-    public void setCategoryId(Long categoryId) {
-        this.categoryId = categoryId;
+    public void setCategory(Category c) {
+        this.category = c;
     }
     public Long getId() {
         return id;
