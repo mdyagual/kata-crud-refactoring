@@ -1,26 +1,27 @@
-import React,{useContext, useState } from 'react';
-import { DELETE_API, PUT_API } from '../config';
+import React,{useContext, useState,useEffect } from 'react';
+import { DELETE_API_TODO, GET_API_TODO, PUT_API_TODO } from '../config';
 import { toDoContext } from '../contexts/toDoContext';
+import { ToDoForm } from './Form';
 
-
-export const List = ({id}) => {
+export const List = ({id,changeState}) => {
     const { dispatch, state: { todo } } = useContext(toDoContext);
     
     const currentList = todo.list;
     
-    /*useEffect(() => {
+    useEffect(() => {
+      //changeState(false);
       //http://127.0.0.1:8080/api/todos/all 
-      fetch(GET_API)
+      fetch(GET_API_TODO)
         .then(response => response.json())
         .then((list) => {
           dispatch({ type: "update-list", list })
         })
-    }, [dispatch]);*/
+    }, [dispatch]);
   
   
     const onDelete = (id) => {
       //http://127.0.0.1:8080/api/todos/eliminar/{id}
-      fetch(DELETE_API + id, {
+      fetch(DELETE_API_TODO + id, {
         method: "DELETE"
       }).then((list) => {
         dispatch({ type: "delete-item", id })
@@ -38,7 +39,7 @@ export const List = ({id}) => {
         completed: event.target.checked
       };
       //Checkbox?
-      fetch(PUT_API, {
+      fetch(PUT_API_TODO, {
         method: "PUT",
         body: JSON.stringify(request),
         headers: {
@@ -55,7 +56,7 @@ export const List = ({id}) => {
       textDecoration: 'line-through'
     };
     return <div>
-      <h3>{todo.catName}</h3>
+      
       <table>      
         <thead>          
           <tr>
@@ -66,15 +67,20 @@ export const List = ({id}) => {
         </thead>
         <tbody>
           { currentList.map((todo) => {            
-            return <tr key={todo.id} style={todo.completed ? decorationDone : {}}>
+            return <tr key={todo.id} style={todo.completed ? decorationDone : {}}>              
               <td>{todo.id}</td>
               <td>{todo.name}</td>
               <td><input type="checkbox" defaultChecked={todo.completed} onChange={(event) => onChange(event, todo)}></input></td>
               <td><button onClick={() => onDelete(todo.id)}>Eliminar</button></td>
               <td><button onClick={() => onEdit(todo)}>Editar</button></td>
+              
             </tr>
           })}
+          
         </tbody>
+        
       </table>
+      
     </div>
+    
   }
