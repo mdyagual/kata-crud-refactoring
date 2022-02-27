@@ -1,0 +1,9 @@
+export const TYPES = {
+    ADD_CAT: 'ADD_CAT',
+    DELETE_CAT: 'DELETE_CAT',
+    ADD_TO_DO: 'ADD_TO_DO',
+    EDIT_TO_DO: 'EDIT_TO_DO',
+    UPDATE_TO_DO: 'UPDATE_TO_DO',
+    DELETE_TO_DO: 'DELETE_TO_DO',
+    UPDATE_CHBOX: 'UPDATE_CHBOX'
+  };
