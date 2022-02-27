@@ -1,25 +1,28 @@
 import React,{useContext, useState,useEffect } from 'react';
-import { DELETE_API_TODO, GET_API_TODO, PUT_API_TODO } from '../config';
+import { DELETE_API_TODO, GET_API_TODO, PUT_API_TODO,GET_API_CAT} from '../config';
 import { toDoContext } from '../contexts/toDoContext';
-import { ToDoForm } from './Form';
+import { ToDoForm } from './CategoryForm';
+import { TYPES } from '../utils/operations';
 
-export const List = ({id,changeState}) => {
-    const { dispatch, state: { todo } } = useContext(toDoContext);
-    
-    const currentList = todo.list;
-    
-    useEffect(() => {
+export const ListToDo = ({idCat}) => {
+    const { dispatch, state } = useContext(toDoContext);
+    const todos=state.toDoS;
+    //const categories=state.categories;
+    //Operador ternario: Si existe que devuelve, sino devuelve vacío 
+    //const currentList = todo.list[idCat]?todo.list[idCat]:[]; //Mapa~ !Puede que no exista: Necesita vali
+    //console.log(todo.list);
+    /*useEffect(() => {
       //changeState(false);
-      //http://127.0.0.1:8080/api/todos/all 
+      //http://127.0.0.1:8080/api/todos/all/id: Cambiar a filtro por id 
       fetch(GET_API_TODO)
         .then(response => response.json())
         .then((list) => {
-          dispatch({ type: "update-list", list })
+          dispatch({ type: TYPES.GET_TODOS, list})
+          //console.log(list);
         })
-    }, [dispatch]);
+    }, [dispatch]);*/
   
-  
-    const onDelete = (id) => {
+  const onDelete = (id) => {
       //http://127.0.0.1:8080/api/todos/eliminar/{id}
       fetch(DELETE_API_TODO + id, {
         method: "DELETE"
@@ -66,7 +69,8 @@ export const List = ({id,changeState}) => {
           </tr>
         </thead>
         <tbody>
-          { currentList.map((todo) => {            
+          { todos.filter((todo)=>todo.category.id === idCat).        
+            map((todo) => {            
             return <tr key={todo.id} style={todo.completed ? decorationDone : {}}>              
               <td>{todo.id}</td>
               <td>{todo.name}</td>
