@@ -1,6 +1,8 @@
 package co.com.sofka.crud.entities;
 
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -16,11 +18,10 @@ import javax.validation.constraints.Min;
 public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)    
-    @Column(name="id_cat",unique = true, nullable = false)
-    @OneToOne(mappedBy = "groupListId",fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    @Column(name="id_cat",unique = true, nullable = false)    
     private Long id;
 
-    @Min(10)
+    //@Min(10)
     @Column(nullable = false)
     private String name;
 
