@@ -1,9 +1,8 @@
 package co.com.sofka.crud.entities;
 
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+
 
 import java.util.List;
 
