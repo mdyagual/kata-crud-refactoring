@@ -1,6 +1,6 @@
-import React,{useContext,useRef,useState,useEffect} from 'react';
+import React,{useContext,useRef,useState} from 'react';
 //import {setHideComponent } from '../App';
-import {POST_API_CAT,DELETE_API_CAT,POST_API_TODO, GET_API_CATS } from '../config';
+import {POST_API_CAT } from '../config';
 import { toDoContext } from '../contexts/toDoContext';
 
 import { TYPES } from '../utils/operations';
@@ -9,9 +9,8 @@ import { TYPES } from '../utils/operations';
 export const CategoryForm = ({changeState}) => {
     
     const formRef = useRef(null);
-    const { dispatch, state } = useContext(toDoContext);
+    const { dispatch} = useContext(toDoContext);
     
-    //const item = category.item;
     //state,setState
     const [catStatus, setCatStatus] = useState('');
 
@@ -52,7 +51,7 @@ export const CategoryForm = ({changeState}) => {
     }
     
     return <form ref={formRef}>
-      <input
+      <input        
         type="text"
         name="name"
         placeholder="Add-Category"
@@ -66,4 +65,3 @@ export const CategoryForm = ({changeState}) => {
     </form>
 }
 
-//N-Categoria: El que tiene lo que se anida

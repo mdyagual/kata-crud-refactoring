@@ -1,47 +1,44 @@
-import React,{useContext, useState,useEffect } from 'react';
-import { DELETE_API_TODO, GET_API_TODO, PUT_API_TODO,GET_API_CAT} from '../config';
+import React,{useContext,useEffect } from 'react';
+import { DELETE_API_TODO, PUT_API_TODO,GET_API_TODO} from '../config';
 import { toDoContext } from '../contexts/toDoContext';
-import { ToDoForm } from './CategoryForm';
+import { toDoReducer } from '../reducers/toDoReducer';
+
 import { TYPES } from '../utils/operations';
 
-export const ListToDo = ({idCat}) => {
+export const ListToDo = ({idCat,nomcat}) => {
     const { dispatch, state } = useContext(toDoContext);
     const todos=state.toDoS;
-    //const categories=state.categories;
-    //Operador ternario: Si existe que devuelve, sino devuelve vacío 
-    //const currentList = todo.list[idCat]?todo.list[idCat]:[]; //Mapa~ !Puede que no exista: Necesita vali
-    //console.log(todo.list);
-    /*useEffect(() => {
-      //changeState(false);
-      //http://127.0.0.1:8080/api/todos/all/id: Cambiar a filtro por id 
-      fetch(GET_API_TODO)
-        .then(response => response.json())
-        .then((list) => {
-          dispatch({ type: TYPES.GET_TODOS, list})
-          //console.log(list);
-        })
-    }, [dispatch]);*/
-  
+
+
+
+
   const onDelete = (id) => {
       //http://127.0.0.1:8080/api/todos/eliminar/{id}
       fetch(DELETE_API_TODO + id, {
         method: "DELETE"
-      }).then((list) => {
-        dispatch({ type: "delete-item", id })
+      }).then(() => {
+        dispatch({ type: TYPES.DELETE_TO_DO, id })
       })
     };
-  
-    const onEdit = (todo) => {
-      dispatch({ type: "edit-item", item: todo })
+    
+    const onEdit = (todo) => {           
+      dispatch({ type: TYPES.UPDATE_ITEM, item: todo })
+      
     };
+    
   
     const onChange = (event, todo) => {
-      const request = {
+      console.log(event);
+      const request ={
         name: todo.name,
         id: todo.id,
-        completed: event.target.checked
-      };
-      //Checkbox?
+        completed: event.target.checked,
+        category: {
+          id: todo.category.id,
+          name: todo.category.name
+        }
+      };     
+      
       fetch(PUT_API_TODO, {
         method: "PUT",
         body: JSON.stringify(request),
@@ -51,7 +48,9 @@ export const ListToDo = ({idCat}) => {
       })
         .then(response => response.json())
         .then((todo) => {
-          dispatch({ type: "update-item", item: todo });
+          console.log("CHBX: ", todo);
+          dispatch({ type: TYPES.UPDATE_TO_DO, item: todo });
+          
         });
     };
   
@@ -69,14 +68,14 @@ export const ListToDo = ({idCat}) => {
           </tr>
         </thead>
         <tbody>
-          { todos.filter((todo)=>todo.category.id === idCat).        
-            map((todo) => {            
-            return <tr key={todo.id} style={todo.completed ? decorationDone : {}}>              
-              <td>{todo.id}</td>
-              <td>{todo.name}</td>
-              <td><input type="checkbox" defaultChecked={todo.completed} onChange={(event) => onChange(event, todo)}></input></td>
-              <td><button onClick={() => onDelete(todo.id)}>Eliminar</button></td>
-              <td><button onClick={() => onEdit(todo)}>Editar</button></td>
+          <tr><td>{todos?.length===0? "No hay TO-DOs":null}</td></tr>
+          { todos?.filter((todo)=>todo?.category?.id === idCat)?.map((todo) => {            
+            return <tr key={todo?.id} style={todo?.completed ? decorationDone : {}}>              
+              <td>{todo?.id}</td>
+              <td>{todo?.name}</td>
+              <td><center><input type="checkbox" defaultChecked={todo?.completed} onChange={(event) => onChange(event, todo)}></input></center></td>
+              <td><button onClick={() => onDelete(todo?.id)}>Eliminar</button></td>
+              <td><button disabled={todo.completed} onClick={() => onEdit(todo)}>Editar</button></td>
               
             </tr>
           })}
