@@ -8,6 +8,7 @@ import { TYPES } from '../utils/operations';
 export const ListToDo = ({idCat,nomcat}) => {
     const { dispatch, state } = useContext(toDoContext);
     const todos=state.toDoS;
+    console.log("Listado de todos: ",todos)
 
 
 
@@ -33,10 +34,7 @@ export const ListToDo = ({idCat,nomcat}) => {
         name: todo.name,
         id: todo.id,
         completed: event.target.checked,
-        category: {
-          id: todo.category.id,
-          name: todo.category.name
-        }
+        categoryId: todo.categoryId
       };     
       
       fetch(PUT_API_TODO, {
@@ -69,7 +67,7 @@ export const ListToDo = ({idCat,nomcat}) => {
         </thead>
         <tbody>
           <tr><td>{todos?.length===0? "No hay TO-DOs":null}</td></tr>
-          { todos?.filter((todo)=>todo?.category?.id === idCat)?.map((todo) => {            
+          { todos?.filter((todo)=>todo?.categoryId === idCat)?.map((todo) => {            
             return <tr key={todo?.id} style={todo?.completed ? decorationDone : {}}>              
               <td>{todo?.id}</td>
               <td>{todo?.name}</td>

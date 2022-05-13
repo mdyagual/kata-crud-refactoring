@@ -25,11 +25,9 @@ export const ToDoForm = ({idCat,nomCat}) =>{
         name: toDoState,
         id: null,
         isCompleted:false,
-        category: {
-          id: idCat,
-          name: nomCat
-        }
+        categoryId: idCat
       };
+      
   
       fetch(POST_API_TODO, {
         method: "POST",
@@ -52,10 +50,7 @@ export const ToDoForm = ({idCat,nomCat}) =>{
         name: toDoState,
         id: item.id,
         completed: item.completed,
-        category: {
-          id: item.category.id,
-          name: item.category.name
-        }
+        categoryId: item.categoryId 
       };
       console.log(request);
       fetch(PUT_API_TODO, {

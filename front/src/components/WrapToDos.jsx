@@ -33,7 +33,7 @@ export default function WrapToDos() {
         //http://127.0.0.1:8080/api/todos/eliminar/{id}
         if(todos.length>0){
             todos.map((todo)=>{
-                if(todo.category.id === id){
+                if(todo.categoryId === id){
                     fetch(DELETE_API_TODO + id,{
                         method: "DELETE"
                       }).then(() => {
