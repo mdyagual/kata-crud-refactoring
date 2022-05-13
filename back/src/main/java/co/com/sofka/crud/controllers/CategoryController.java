@@ -2,6 +2,7 @@ package co.com.sofka.crud.controllers;
 
 import java.util.ArrayList;
 
+import co.com.sofka.crud.dto.CategoryDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import co.com.sofka.crud.entities.Category;
 import co.com.sofka.crud.services.CategoryService;
 
 @RestController
@@ -25,25 +25,25 @@ public class CategoryController {
     private CategoryService catService;   
 
     @GetMapping("/all")
-    //http://127.0.0.1:8080/api/todos/all  
-    public ResponseEntity<ArrayList<Category>> obtenerCategories(){
-        ArrayList<Category> allCats = catService.getCategories();
-        return new ResponseEntity<ArrayList<Category>>(allCats, HttpStatus.OK);
+    //http://127.0.0.1:8080/api/categories/all
+    public ResponseEntity<ArrayList<CategoryDTO>> obtenerCategories(){
+        ArrayList<CategoryDTO> allCats = catService.getCategories();
+        return new ResponseEntity<ArrayList<CategoryDTO>>(allCats, HttpStatus.OK);
     }
 
     @GetMapping("/category/{id}")
     //http://127.0.0.1:8080/api/categories/category/{id}
-    public ResponseEntity<Category> obtenerCategoryPorId(@PathVariable("id") Long id){
-        Category c = catService.getCategoryById(id);
-        return new ResponseEntity<Category>(c,HttpStatus.OK);
+    public ResponseEntity<CategoryDTO> obtenerCategoryPorId(@PathVariable("id") Long id){
+        CategoryDTO c = catService.getCategoryById(id);
+        return new ResponseEntity<CategoryDTO>(c,HttpStatus.OK);
     }
 
     //POST
     @PostMapping("/guardar")
     //http://127.0.0.1:8080/api/categories/guardar
-    public ResponseEntity<Category> guardarTodo(@RequestBody Category c){
-        Category cat = catService.saveCategory(c);
-        return new ResponseEntity<Category>(cat, HttpStatus.CREATED);
+    public ResponseEntity<CategoryDTO> guardarTodo(@RequestBody CategoryDTO c){
+        CategoryDTO cat = catService.saveCategory(c);
+        return new ResponseEntity<CategoryDTO>(cat, HttpStatus.CREATED);
     }
 
     //DELETE
