@@ -37,18 +37,18 @@ public class TodoController {
     //POST
     @PostMapping("/guardar")
     //http://127.0.0.1:8080/api/todos/guardar
-    public ResponseEntity<Todo> guardarTodo(@RequestBody TodoDTO todoDTO){
-        Todo todo = toDoService.saveToDO(todoDTO);
-        return new ResponseEntity<Todo>(todo, HttpStatus.CREATED);
+    public ResponseEntity<TodoDTO> guardarTodo(@RequestBody TodoDTO todoDTO){
+        TodoDTO todo = toDoService.saveToDO(todoDTO);
+        return new ResponseEntity<TodoDTO>(todo, HttpStatus.CREATED);
     }
 
     //PUT
     @PutMapping("/actualizar")
     //http://127.0.0.1:8080/api/todos/actualizar
-    public ResponseEntity<Todo> actualizarToDo(@RequestBody TodoDTO todoDTO){
+    public ResponseEntity<TodoDTO> actualizarToDo(@RequestBody TodoDTO todoDTO){
         if(todoDTO.getId() != null){
-            Todo todoUp = toDoService.saveToDO(todoDTO);
-            return new ResponseEntity<Todo>(todoUp,HttpStatus.CREATED);
+            TodoDTO todoUp = toDoService.saveToDO(todoDTO);
+            return new ResponseEntity<TodoDTO>(todoUp,HttpStatus.CREATED);
         }
         
         throw new RuntimeException("No existe el id para actualziar");
