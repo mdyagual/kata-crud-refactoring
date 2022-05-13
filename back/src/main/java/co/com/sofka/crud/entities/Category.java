@@ -1,9 +1,14 @@
 package co.com.sofka.crud.entities;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -14,6 +19,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Table;
 
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
 @Table(name="tbl_categories")
 public class Category {
     @Id
@@ -25,45 +33,17 @@ public class Category {
     @Column(nullable = false)
     private String name;
 
-    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)    
-    private List<Todo> todos;
+    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Todo> todos = new ArrayList<Todo>() ;
     
-    /*public Category(Todo todo){
-        this.todo=todo;
-        todo.setCategory(this);
-    }*/
-
-    
-
-    public Category() {
-    }
-
-
-
-    //Getters and setters
-    public Long getId() {
-        return id;
-    }
-    public void setId(Long id) {
-        this.id = id;
-    }
-    public String getName() {
-        return name;
-    }
-    public void setName(String name) {
-        this.name = name;
-    }
-    
-    public void setTodo(Todo todo){
+    public void addTodo(Todo todo){
         todos.add(todo);
-        todo.setCategory(this);
 
     }
 
-    public void removeTodo(Todo todo){
+   /*public void removeTodo(Todo todo){
         todos.remove(todo);
-        todo.setCategory(null);
 
-    }
+    }*/
     
 }
