@@ -3,6 +3,9 @@ package co.com.sofka.crud.services;
 import java.util.ArrayList;
 import java.util.stream.Collectors;
 
+import co.com.sofka.crud.dto.CategoryDTO;
+import co.com.sofka.crud.entities.Category;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,8 +19,15 @@ public class TodoService {
     @Autowired
     private TodoRepository toDoRepo;
 
+    @Autowired
+    private CategoryService categoryService;
+
+    @Autowired
+    private ModelMapper modelMapper;
+
     //Gets
     public ArrayList<TodoDTO> getToDos(){
+
         return (ArrayList<TodoDTO>) toDoRepo.findAll()
                 .stream()                    
                 .map(this::convertEntityToDto)
@@ -29,34 +39,26 @@ public class TodoService {
     }
     
     //Save
-    public Todo saveToDO(TodoDTO todoDTO){
-        return toDoRepo.save(convertDTOToEntity(todoDTO));
+    public TodoDTO saveToDO(TodoDTO todoDTO){
+        CategoryDTO categoryDTO = categoryService.getCategoryById(todoDTO.getCategoryId());
+        Category c = modelMapper.map(categoryDTO,Category.class);
+        c.addTodo(convertDTOToEntity(todoDTO));
+        return convertEntityToDto(toDoRepo.save(convertDTOToEntity(todoDTO)));
     }
 
     //Delete
     public void deleteToDo(Long id){
+
         toDoRepo.delete(convertDTOToEntity(getToDoById(id)));
     }    
 
     //Conversiones
     public TodoDTO convertEntityToDto(Todo todo){
-        TodoDTO todoDTO = new TodoDTO();
-        todoDTO.setId(todo.getId());
-        todoDTO.setName(todo.getName());
-        todoDTO.setCompleted(todo.isCompleted());
-        todoDTO.setCategory(todo.getCategory());
-
-        return todoDTO;
+        return modelMapper.map(todo,TodoDTO.class);
     }
 
-    public static Todo convertDTOToEntity(TodoDTO todoDTO){
-        Todo todo= new Todo();
-        todo.setId(todoDTO.getId());
-        todo.setName(todoDTO.getName());
-        todo.setCompleted(todoDTO.isCompleted());
-        todo.setCategory(todoDTO.getCategory());
-
-        return todo;
+    public Todo convertDTOToEntity(TodoDTO todoDTO){
+        return modelMapper.map(todoDTO, Todo.class );
     }
 
 
