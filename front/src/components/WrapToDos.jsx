@@ -12,8 +12,6 @@ export default function WrapToDos() {
     useEffect(() => {
         //http://127.0.0.1:8080/api/categories/all         
         serviceCat.getAllCategories(dispatch);
-           
-      
         
       }, [dispatch]);
     
