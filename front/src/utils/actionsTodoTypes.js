@@ -1,0 +1,9 @@
+export const TODO = { 
+    ADD_TO_DO: 'ADD_TO_DO',
+    EDIT_TO_DO: 'EDIT_TO_DO',
+    UPDATE_TO_DO: 'UPDATE_TO_DO',
+    UPDATE_ITEM: 'UPDATE_ITEM',
+    CLEAN_ITEM: 'CLEAN_ITEM',
+    DELETE_TO_DO: 'DELETE_TO_DO',
+    GET_TODOS: 'GET_TODOS'
+  };
