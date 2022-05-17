@@ -14,7 +14,7 @@ export function toDoReducer(state, action) {
       return { ...state, toDoS: [...state.toDoS, action.item] };
 
     case TYPES.GET_CATS:
-      return { ...state, categories: action.list };
+      return { ...state, categories: action.payload };
 
     case TYPES.GET_TODOS:
       return { ...state, toDoS: action.list };

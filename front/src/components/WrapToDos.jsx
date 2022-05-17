@@ -4,7 +4,7 @@ import { TYPES } from '../utils/operations';
 import { toDoContext } from '../contexts/toDoContext';
 import {ToDoForm} from './ToDoForm';
 import {ListToDo} from './ListToDo';
-
+import serviceCat from '../services/serviceCategory';
 export default function WrapToDos() {
     const { dispatch, state } = useContext(toDoContext);
     const todos=state.toDoS;
@@ -12,13 +12,18 @@ export default function WrapToDos() {
     useEffect(() => {
         //changeState(false);
         //http://127.0.0.1:8080/api/categories/all 
-        fetch(GET_API_CATS)
+        /*fetch(GET_API_CATS)
           .then(response => response.json())
           .then((list) => {
             dispatch({ type: TYPES.GET_CATS, list })
-          })
+          })*/
+        
+        serviceCat.getAllCategories(dispatch);
+           
+      
+        
       }, [dispatch]);
-
+    console.log("State: ",state);
     useEffect(() => {
         //changeState(false);
         //http://127.0.0.1:8080/api/todos/all 
