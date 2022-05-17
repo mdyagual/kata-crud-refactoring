@@ -5,6 +5,7 @@ import { toDoContext } from '../contexts/toDoContext';
 import {ToDoForm} from './ToDoForm';
 import {ListToDo} from './ListToDo';
 import serviceCat from '../services/serviceCategory';
+import serviceTodo from '../services/serviceTodo';
 export default function WrapToDos() {
     const { dispatch, state } = useContext(toDoContext);
     const todos=state.toDoS;
@@ -12,18 +13,11 @@ export default function WrapToDos() {
     useEffect(() => {
         //http://127.0.0.1:8080/api/categories/all         
         serviceCat.getAllCategories(dispatch);
-        
+
+        //http://127.0.0.1:8080/api/todos/all 
+        serviceTodo.getTodos(dispatch);
       }, [dispatch]);
     
-    useEffect(() => {
-        //changeState(false);
-        //http://127.0.0.1:8080/api/todos/all 
-        fetch(GET_API_TODO)
-          .then(response => response.json())
-          .then((list) => {
-            dispatch({ type: TYPES.GET_TODOS, list })
-          })
-      }, [dispatch]);  
 
       const onDelete = (id) => {
         //http://127.0.0.1:8080/api/todos/eliminar/{id}

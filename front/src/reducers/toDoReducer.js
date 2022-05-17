@@ -17,7 +17,7 @@ export function toDoReducer(state, action) {
       return { ...state, categories: action.payload };
 
     case TYPES.GET_TODOS:
-      return { ...state, toDoS: action.list };
+      return { ...state, toDoS: action.payload };
 
     case TYPES.DELETE_CAT:
       const categoryDel = state.categories;
