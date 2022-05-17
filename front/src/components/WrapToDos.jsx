@@ -10,20 +10,13 @@ export default function WrapToDos() {
     const todos=state.toDoS;
 
     useEffect(() => {
-        //changeState(false);
-        //http://127.0.0.1:8080/api/categories/all 
-        /*fetch(GET_API_CATS)
-          .then(response => response.json())
-          .then((list) => {
-            dispatch({ type: TYPES.GET_CATS, list })
-          })*/
-        
+        //http://127.0.0.1:8080/api/categories/all         
         serviceCat.getAllCategories(dispatch);
            
       
         
       }, [dispatch]);
-    console.log("State: ",state);
+    
     useEffect(() => {
         //changeState(false);
         //http://127.0.0.1:8080/api/todos/all 
